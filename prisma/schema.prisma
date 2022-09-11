@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  id              Int     @id @default(autoincrement())
+  email           String  @unique
+  password        String
+  webCredentials  WebCredentials[]
+  safeNotes       SafeNotes[]
+  cards           Cards[]
+  wifis           Wifis[]
+}
+model WebCredentials{
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(50)
+  url             String
+  user            Users   @relation(fields: [userId],references: [id]) 
+  userId          Int
+  @@unique([userId,title])
+}
+model SafeNotes{
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(50)
+  note            String
+  user            Users   @relation(fields: [userId],references: [id]) 
+  userId          Int
+  @@unique([userId,title])
+}
+enum CardTypes {
+  credit
+  debit
+  both
+}
+model Cards{
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(50)
+  number          String  @db.VarChar(12)
+  holderName      String
+  cvc             String  @db.VarChar(3)
+  expiryDate      String  @db.VarChar(5)
+  password        String  @db.VarChar(4)
+  isVirtual       Boolean
+  type            CardTypes
+  user            Users   @relation(fields: [userId],references: [id]) 
+  userId          Int
+  @@unique([userId,title])
+}
+model Wifis{
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(50)
+  wifiName        String
+  password        String
+  user            Users   @relation(fields: [userId],references: [id]) 
+  userId          Int
+}
