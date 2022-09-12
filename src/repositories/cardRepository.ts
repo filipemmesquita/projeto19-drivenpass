@@ -1,5 +1,5 @@
 import { prisma } from "../config/database";
-import { CreateCardData, CardData } from "../types/types";
+import { CreateCardData, CardData, CardDataArray } from "../types/types";
 
 export async function insert(newCard:CreateCardData){
     await prisma.cards.create({
@@ -14,4 +14,22 @@ export async function getByUserAndTitle(userId:number,newTitle:string) {
         }
     })
     return card;
+}
+export async function getAllByUser(userId:number):Promise<CardDataArray[]> {
+    const cards:CardDataArray[]=await prisma.cards.findMany({
+        where:{
+            userId:userId,
+        },
+        select:{
+            id:true,
+            title:true,
+            number:true,
+            holderName:true,
+            expiryDate:true,
+            isVirtual:true,
+            type:true,
+            userId:true,
+        },
+    })
+    return cards;
 }

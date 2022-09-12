@@ -1,4 +1,4 @@
-import { CreateCardData, CardData } from "../types/types";
+import { CreateCardData, CardData, CardDataArray } from "../types/types";
 import * as cardRepository from '../repositories/cardRepository'
 import Cryptr from "cryptr";
 
@@ -15,4 +15,11 @@ export async function insertCard(data:CreateCardData){
     newCard.cvc=encryptedCvc;
 
     await cardRepository.insert(newCard);
+}
+
+export async function getAllCards(userId:number) {
+    const cards:CardDataArray[]=await cardRepository.getAllByUser(userId)
+    if(cards.length===0)
+        throw{type:404,message:"No Card was found."}
+    return cards;
 }

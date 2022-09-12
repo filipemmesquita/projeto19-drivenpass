@@ -1,5 +1,5 @@
 import { prisma } from "../config/database";
-import { CreateCredentialData, CredentialData } from "../types/types";
+import { CreateCredentialData, CredentialData, CredentialDataArray } from "../types/types";
 
 export async function insert(credentialData:CreateCredentialData) {
     await prisma.webCredentials.create({
@@ -15,10 +15,17 @@ export async function getByUserAndTitle(userId:string|number,newTitle:string):Pr
     })
     return credential;
 }
-export async function getAllByUser(userId:number):Promise<CredentialData[]> {
-    const credentials:CredentialData[] = await prisma.webCredentials.findMany({
+export async function getAllByUser(userId:number):Promise<CredentialDataArray[]> {
+    const credentials:CredentialDataArray[] = await prisma.webCredentials.findMany({
         where:{
             userId:userId,
+        },
+        select:{
+            id:true,
+            title:true,
+            url:true,
+            userName:true,
+            userId:true,
         }
     })
 

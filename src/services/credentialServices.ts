@@ -1,4 +1,4 @@
-import { CreateCredentialData, CredentialData } from "../types/types";
+import { CreateCredentialData, CredentialData, CredentialDataArray } from "../types/types";
 import * as credentialRepository from '../repositories/credentialRepository';
 import Cryptr from "cryptr";
 
@@ -19,7 +19,7 @@ export async function insertCredential(data:CreateCredentialData){
     await credentialRepository.insert(credentialData);
 }
 export async function getAllCredentials(userId:number) {
-    const credentials:CredentialData[]=await credentialRepository.getAllByUser(userId)    
+    const credentials:CredentialDataArray[]=await credentialRepository.getAllByUser(userId)    
     if(credentials.length===0)
         throw{type:404,message:"No Credential was found."}
     return credentials;
@@ -28,6 +28,8 @@ export async function getSingleCredential(userId:number,credentialId:number){
     const credential:CredentialData|null=await credentialRepository.getById(credentialId,userId);
     if(!credential)
         throw{type:404,message:"No Credential was found."}
+    
+    credential.password=cryptr.decrypt(credential.password)
     return credential;
 }
 export async function deleteCredential(userId:number,credentialId:number){

@@ -16,3 +16,10 @@ export async function createCard(req:Request,res:Response){
     await cardServices.insertCard(cardData);
     return res.sendStatus(201);
 }
+export async function displayAllCards(req:Request,res:Response){
+    const userId:number=Number(res.locals.userData.userId)
+    const cards=await cardServices.getAllCards(userId);
+    return res.status(200).send(cards);
+}
+
+//const cardId:number=Number(req.params.noteId);
