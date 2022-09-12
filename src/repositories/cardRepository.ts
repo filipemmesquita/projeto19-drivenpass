@@ -42,3 +42,11 @@ export async function getById(id:number,userId:number):Promise<CardData|null>{
     })
     return card;
 }
+export async function deleteById(id:number) {
+    await prisma.cards.delete({
+        where:{
+            id:id,
+        }
+    })
+    
+}

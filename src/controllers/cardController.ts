@@ -27,3 +27,9 @@ export async function displaySingleCard(req:Request,res:Response) {
     const card=await cardServices.getSingleCard(userId,cardId)
     return res.status(200).send(card);
 }
+export async function deleteCard(req:Request,res:Response) {
+    const cardId:number=Number(req.params.cardId);
+    const userId:number=Number(res.locals.userData.userId)
+    const card=await cardServices.deleteCard(userId,cardId)
+    return res.sendStatus(200);
+}

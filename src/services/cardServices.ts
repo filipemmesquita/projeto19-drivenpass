@@ -31,3 +31,10 @@ export async function getSingleCard(userId:number,cardId:number) {
     card.password=cryptr.decrypt(card.password);
     return card;
 }
+export async function deleteCard(userId:number,cardId:number){
+    const card:CardData|null=await cardRepository.getById(cardId,userId);
+    if(card)
+        await cardRepository.deleteById(card.id)
+    else
+        throw{type:404,message:"No Card was found."}
+}
