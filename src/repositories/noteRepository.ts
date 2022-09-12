@@ -32,3 +32,10 @@ export async function getById(id:number,userId:number):Promise<NoteData|null> {
     })
     return note    
 }
+export async function deleteById(id:number){
+    await prisma.safeNotes.delete({
+        where:{
+            id:id,
+        }
+    })
+}

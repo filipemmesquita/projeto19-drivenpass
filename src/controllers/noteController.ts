@@ -21,3 +21,9 @@ export async function displaySingleNote(req:Request,res:Response) {
     const note=await noteServices.getSingleNote(userId,noteId);
     return res.status(200).send(note);    
 }
+export async function deleteNote(req:Request,res:Response){
+    const userId:number=Number(res.locals.userData.userId);
+    const noteId:number=Number(req.params.noteId);
+    await noteServices.deleteNote(userId,noteId);
+    return res.sendStatus(200)
+}

@@ -19,3 +19,10 @@ export async function getSingleNote(userId:number,noteId:number){
         throw{type:404,message:"No Note was found."}
     return note;
 }
+export async function deleteNote(userId:number,noteId:number){
+    const note:NoteData|null=await noteRepository.getById(noteId,userId);
+    if(note)
+        await noteRepository.deleteById(note.id);
+    else
+        throw{type:404,message:"No Note was found."}
+}

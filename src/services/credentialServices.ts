@@ -33,7 +33,7 @@ export async function getSingleCredential(userId:number,credentialId:number){
 export async function deleteCredential(userId:number,credentialId:number){
     const credential:CredentialData|null=await credentialRepository.getById(credentialId,userId);
     if(credential)
-        await credentialRepository.deleteById(credentialId);
+        await credentialRepository.deleteById(credential.id);
     else
         throw{type:404,message:"No Credential was found."}
 }
