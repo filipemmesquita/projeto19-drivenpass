@@ -23,3 +23,9 @@ export async function getSingleCredential(req:Request,res:Response){
     const credential=await credentialServices.getSingleCredential(userId,credentialId);
     return res.status(200).send(credential);
 }
+export async function deleteCredential(req:Request,res:Response){
+    const userId:number=Number(res.locals.userData.userId);
+    const credentialId:number=Number(req.params.credentialId);
+    await credentialServices.deleteCredential(userId,credentialId);
+    return res.sendStatus(200);
+}

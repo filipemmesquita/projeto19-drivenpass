@@ -32,7 +32,13 @@ export async function getById(id:number,userId:number):Promise<CredentialData|nu
             id:id,
         }
     })
-
     return credential;
+}
+export async function deleteById(id:number) {
+    await prisma.webCredentials.delete({
+        where:{
+            id:id,
+        }
+    })
     
 }
