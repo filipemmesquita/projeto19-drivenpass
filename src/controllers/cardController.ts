@@ -9,7 +9,7 @@ export async function createCard(req:Request,res:Response){
         cvc:req.body.cvc,
         expiryDate:req.body.expiryDate,
         password:req.body.password,
-        isVirtual:req.body.password ? true : false,
+        isVirtual:req.body.isVirtual ? true : false,
         type:req.body.type,
         userId:Number(res.locals.userData.userId)
     }
