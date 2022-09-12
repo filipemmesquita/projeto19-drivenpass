@@ -3,10 +3,6 @@ import * as userRepository from '../repositories/userRepository';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
-
-
-
 export async function insertUser(body:CreateUserData) {
     const userAlreadyExists=await userRepository.getByEmail(body.email);
     if(userAlreadyExists){
@@ -19,6 +15,7 @@ export async function insertUser(body:CreateUserData) {
     };
     await userRepository.insert(userData)
 }
+
 export async function signIn(body:CreateUserData) {
     const user=await userRepository.getByEmail(body.email);
     if(!user)

@@ -6,7 +6,7 @@ export async function insert(userData:CreateUserData) {
         data:userData
     });
 }
-export async function getByEmail(email:any){
+export async function getByEmail(email:any):Promise<UserData|null>{
     const user:UserData|null=await prisma.users.findFirst({
         where:{
             email:email,
