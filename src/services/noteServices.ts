@@ -13,3 +13,9 @@ export async function getAllNotes(userId:number){
         throw{type:404,message:"No Note Was found."}
     return notes;
 }
+export async function getSingleNote(userId:number,noteId:number){
+    const note:NoteData|null=await noteRepository.getById(noteId,userId);
+    if(!note)
+        throw{type:404,message:"No Note was found."}
+    return note;
+}

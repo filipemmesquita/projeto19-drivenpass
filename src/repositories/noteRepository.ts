@@ -23,3 +23,12 @@ export async function getAllByUser(userId:number):Promise<NoteData[]> {
     })
     return notes;    
 }
+export async function getById(id:number,userId:number):Promise<NoteData|null> {
+    const note:NoteData|null= await prisma.safeNotes.findFirst({
+        where:{
+            userId:userId,
+            id:id,
+        }
+    })
+    return note    
+}
