@@ -16,3 +16,23 @@ export async function getByUserAndTitle(userId:string|number,newTitle:string):Pr
     })
     return credential;
 }
+export async function getAllByUser(userId:number):Promise<CredentialData[]> {
+    const credentials:CredentialData[] = await prisma.webCredentials.findMany({
+        where:{
+            userId:userId,
+        }
+    })
+
+    return credentials;
+}
+export async function getById(id:number,userId:number):Promise<CredentialData|null> {
+    const credential:CredentialData|null= await prisma.webCredentials.findFirst({
+        where:{
+            userId:userId,
+            id:id,
+        }
+    })
+
+    return credential;
+    
+}

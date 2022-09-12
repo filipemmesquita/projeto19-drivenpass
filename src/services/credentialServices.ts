@@ -1,4 +1,4 @@
-import { CreateCredentialData } from "../types/types";
+import { CreateCredentialData, CredentialData } from "../types/types";
 import * as credentialRepository from '../repositories/credentialRepository';
 import Cryptr from "cryptr";
 
@@ -8,7 +8,6 @@ export async function insertCredential(data:CreateCredentialData){
     const credentialAlreadyExists=await credentialRepository.getByUserAndTitle(data.userId,data.title);
     if(credentialAlreadyExists)
         throw{type:409,message:"A Credential with this title already exists."};
-    console.log(credentialAlreadyExists)
     const encryptedPassword=cryptr.encrypt(data.password);
     const credentialData:CreateCredentialData={
         title:data.title,
@@ -18,4 +17,10 @@ export async function insertCredential(data:CreateCredentialData){
         userId:data.userId
     }
     await credentialRepository.insert(credentialData);
+}
+export async function getAllCredentials(userId:number) {
+    const credentials:CredentialData[]=await credentialRepository.getAllByUser(userId)    
+    if(credentials.length===0)
+        throw{type:404,message:"No Credential was found."}
+    return credentials;
 }
