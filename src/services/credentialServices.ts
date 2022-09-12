@@ -24,3 +24,9 @@ export async function getAllCredentials(userId:number) {
         throw{type:404,message:"No Credential was found."}
     return credentials;
 }
+export async function getSingleCredential(userId:number,credentialId:number){
+    const credential:CredentialData|null=await credentialRepository.getById(credentialId,userId);
+    if(!credential)
+        throw{type:404,message:"No Credential was found."}
+    return credential;
+}

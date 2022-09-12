@@ -17,3 +17,9 @@ export async function getAllCredentials(req:Request,res:Response) {
     const credentials=await credentialServices.getAllCredentials(userId);
     return res.status(200).send(credentials);    
 }
+export async function getSingleCredential(req:Request,res:Response){
+    const userId:number=Number(res.locals.userData.userId);
+    const credentialId:number=Number(req.params.credentialId);
+    const credential=await credentialServices.getSingleCredential(userId,credentialId);
+    return res.status(200).send(credential);
+}
