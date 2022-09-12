@@ -1,4 +1,3 @@
-import { title } from "process";
 import { prisma } from "../config/database";
 import { CreateCredentialData, CredentialData } from "../types/types";
 
