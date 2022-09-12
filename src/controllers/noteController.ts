@@ -10,3 +10,8 @@ export async function createNote(req:Request,res:Response){
     await noteServices.insertNote(noteData)
     return res.sendStatus(201);
 }
+export async function displayAllNotes(req:Request,res:Response){
+    const userId:number=Number(res.locals.userData.userId);
+    const notes=await noteServices.getAllNotes(userId);
+    return res.status(200).send(notes);
+}

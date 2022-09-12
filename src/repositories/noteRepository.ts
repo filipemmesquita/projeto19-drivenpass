@@ -15,3 +15,11 @@ export async function getByUserAndTitle(userId:number,newTitle:string){
     })
     return note
 }
+export async function getAllByUser(userId:number):Promise<NoteData[]> {
+    const notes:NoteData[]=await prisma.safeNotes.findMany({
+        where:{
+            userId:userId,
+        }
+    })
+    return notes;    
+}
