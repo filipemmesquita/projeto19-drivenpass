@@ -14,5 +14,5 @@ app.use(errorHandlerMiddleware);
 
 const PORT = Number(process.env.PORT) || 5000;
 app.listen(PORT, () => {
-  console.log(`Servidor funfando de boas na porta: ${PORT}`);
+  console.log(`Server online at port: ${PORT}`);
 });

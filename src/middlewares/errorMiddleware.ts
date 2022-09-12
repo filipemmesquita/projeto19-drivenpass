@@ -8,16 +8,11 @@ export function errorHandlerMiddleware(
 ) {
   console.log(err);
   if (err.type) {
-    return res.sendStatus(errorTypeToStatusCode(err.type));
+    if(err.messsage){
+      return res.status(err.type).send(err.messsage);
+    }
+    return res.sendStatus(err.type);
   }
 
   return res.sendStatus(500);
-}
-
-function errorTypeToStatusCode(errorType: string) {
-  if (errorType === 'conflict') return 409;
-  if (errorType === 'not_found') return 404;
-  if (errorType === 'unauthorized') return 401;
-
-  return 400;
 }
