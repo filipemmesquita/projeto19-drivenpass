@@ -23,3 +23,11 @@ export async function getAllCards(userId:number) {
         throw{type:404,message:"No Card was found."}
     return cards;
 }
+export async function getSingleCard(userId:number,cardId:number) {
+    const card:CardData|null=await cardRepository.getById(cardId,userId);
+    if(!card)
+        throw{type:404,message:"No Card was found."}
+    card.cvc=cryptr.decrypt(card.cvc)
+    card.password=cryptr.decrypt(card.password);
+    return card;
+}

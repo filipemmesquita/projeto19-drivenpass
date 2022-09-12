@@ -33,3 +33,12 @@ export async function getAllByUser(userId:number):Promise<CardDataArray[]> {
     })
     return cards;
 }
+export async function getById(id:number,userId:number):Promise<CardData|null>{
+    const card:CardData|null=await prisma.cards.findFirst({
+        where:{
+            userId,
+            id,
+        }
+    })
+    return card;
+}
