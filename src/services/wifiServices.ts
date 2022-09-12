@@ -25,3 +25,10 @@ export async function getSingleWifi(userId:number,wifiId:number){
     wifi.password=cryptr.decrypt(wifi.password)
     return wifi;
 }
+export async function deleteWifi(userId:number,wifiId:number){
+    const wifi:WifiData|null=await wifiRepository.getById(wifiId,userId);
+    if(wifi)
+        await wifiRepository.deleteById(wifi.id);
+    else
+        throw{type:404,message:"No Wifi was found."}
+}

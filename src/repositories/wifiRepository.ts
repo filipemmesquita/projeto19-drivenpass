@@ -6,15 +6,6 @@ export async function insert(newWifi:CreateWifiData) {
         data:newWifi
     })
 }
-export async function getByUserAndTitle(userId:number,newTitle:string){
-    const wifi:WifiData|null=await prisma.wifis.findFirst({
-        where:{
-            title:newTitle,
-            userId:userId
-        }
-    })
-    return wifi
-}
 export async function getAllByUser(userId:number):Promise<WifiDataArray[]> {
     const wifis:WifiDataArray[]=await prisma.wifis.findMany({
         where:{
@@ -37,4 +28,11 @@ export async function getById(id:number,userId:number):Promise<WifiData|null> {
         }
     })
     return wifi    
+}
+export async function deleteById(id:number){
+    await prisma.wifis.delete({
+        where:{
+            id:id,
+        }
+    })
 }

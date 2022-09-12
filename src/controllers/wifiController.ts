@@ -22,3 +22,9 @@ export async function displaySingleWifi(req:Request,res:Response) {
     const wifi=await wifiServices.getSingleWifi(userId,wifiId);
     return res.status(200).send(wifi);    
 }
+export async function deleteSingleWifi(req:Request,res:Response) {
+    const userId:number=Number(res.locals.userData.userId);
+    const wifiId:number=Number(req.params.wifiId);
+    const wifi=await wifiServices.deleteWifi(userId,wifiId);
+    return res.sendStatus(200);    
+}
