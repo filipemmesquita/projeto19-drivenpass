@@ -45,12 +45,12 @@ enum CardTypes {
 model Cards{
   id              Int     @id @default(autoincrement())
   title           String  @db.VarChar(50)
-  number          String  @db.VarChar(12)
+  number          String  @db.VarChar(16)
   holderName      String
-  cvc             String  @db.VarChar(3)
-  expiryDate      String  @db.VarChar(5)
-  password        String  @db.VarChar(4)
-  isVirtual       Boolean
+  cvc             String  
+  expiryDate      String  
+  password        String  
+  isVirtual       Boolean @default(false)
   type            CardTypes
   user            Users   @relation(fields: [userId],references: [id]) 
   userId          Int
